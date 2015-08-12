@@ -15,7 +15,7 @@ class Field(object):
         self._default = kw.get('default', None)
         self.primary_key = kw.get('primary_key', False)
         self.nullable = kw.get('nullable', False)
-        self.updateble = kw.get('updatable', True)
+        self.updatable = kw.get('updatable', True)
         self.insertable = kw.get('insertable', True)
         self.ddl = kw.get('ddl', '')
         self._order = Field._count
@@ -175,7 +175,7 @@ class Model(dict):
     @classmethod
     def get(cls, pk):
 
-        d = db.select_one('select * from %s wher %s=?' % (cls.__table__, cls.__primary_key__.name), pk)
+        d = db.select_one('select * from %s where %s=?' % (cls.__table__, cls.__primary_key__.name), pk)
         return cls(**d) if d else None
 
     @classmethod
