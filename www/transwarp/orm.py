@@ -23,7 +23,7 @@ class Field(object):
 
     @property
     def default(self):
-        d = self._defult
+        d = self._default
         return d() if callable(d) else d
 
     def __str__(self):
@@ -145,7 +145,7 @@ class ModelMetaclass(type):
         if not primary_key:
             raise TypeError('Primary key not defined in class: %s' % name)
 
-        for k in mappings.iterKeys():
+        for k in mappings.keys():
             attrs.pop(k)
         if not '__table__' in attrs:
             attrs['__table__'] = name.lower()
@@ -180,7 +180,7 @@ class Model(dict):
 
     @classmethod
     def find_first(cls, where, *args):
-        d = db.selet_one('select * from %s %s' % (cls.__table__, where), *args)
+        d = db.select_one('select * from %s %s' % (cls.__table__, where), *args)
         return cls(**d) if d else None
 
     @classmethod
@@ -216,7 +216,7 @@ class Model(dict):
         return self
 
     def delete(self):
-        self.pre_deletel and self.pre_deletel()
+        self.pre_delete and self.pre_delete()
         pk = self.__primary_key__.name
         args = (getattr(self, pk), )
         db.update('delete from `%s` where `%s`=?' % (self.__table__, pk), *args)
@@ -225,7 +225,7 @@ class Model(dict):
     def insert(self):
         self.pre_insert and self.per_insert
         params = {}
-        for k, v in self.__mappins__.iteritems():
+        for k, v in self.__mappings__.iteritems():
             if v.insertable:
                 if not hasattr(self, k):
                     setattr(self, k, v.default)
