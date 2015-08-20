@@ -12,7 +12,6 @@ from transwarp.web import WSGIApplication, Jinja2TemplateEngine
 
 from config import configs
 db.create_engine(**configs.db)
-
 wsgi = WSGIApplication(os.path.dirname(os.path.abspath(__file__)))
 
 wsgi.template_engine = Jinja2TemplateEngine(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'))
