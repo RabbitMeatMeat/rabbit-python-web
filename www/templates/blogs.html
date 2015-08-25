@@ -1,0 +1,12 @@
+{% extends  '__base__.html' %}
+
+{% block content %}
+    <p>{{ user.name }}</p>
+    {% for blog in blogs %}
+        <h2><a href="/blog/{{ blog.id }}">{{ blog.name }}</h2>
+        <p>{{ blog.summary }}</p>
+        <p><a href="/blog/{{ blog.id }}"> next </a></p>
+    {% endfor %}
+{% endblock %}
+
+
